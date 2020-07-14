@@ -1,0 +1,88 @@
+.MainPage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+}
+
+.MainPageGame {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-right: 2px solid #eee;
+}
+
+.GameSettings {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+.SelectGameMode {
+    width: 170px;
+    height: 40px;
+    color: #84959b;
+    background-color: #cfd8dc;
+    border-radius: 6px;
+    border: none;
+    text-align: center;
+    font-size: 18px;
+    outline: none;
+    cursor: pointer;
+}
+
+.InputName {
+    width: 170px;
+    height: 40px;
+    color: #8a9a9f;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.InputName::placeholder {
+    color: #8a9a9f;
+}
+
+.ButtonPlay {
+    width: 120px;
+    height: 40px;
+    color: white;
+    background-color: #7b8d93;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.MainPageLeader {
+    width: 50%;
+    height: 100%;
+}
+  
+.Box25 {
+    width: 235px;
+    height: 235px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.Check1 {
+    color: green;
+}
+
+.Check2 {
+    color: blueviolet;
+}

@@ -3,10 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import { 
+    createStore, 
+    applyMiddleware,
+    combineReducers
+} from 'redux';
+import thunk from 'redux-thunk';
+
+import rootReducerData from './store/reducers/rootReducer'
+
+const rootReducer = combineReducers({
+  leaderData: rootReducerData
+})
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
