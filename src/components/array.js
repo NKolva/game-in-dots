@@ -9,7 +9,7 @@ const array1 = [
     {id: 14, isClicked: false}, {id: 15, isClicked: false}, 
     {id: 16, isClicked: false}, {id: 17, isClicked: false}, 
     {id: 18, isClicked: false}, {id: 19, isClicked: false}, 
-    {id: 20, isClicked: false},{id: 21, isClicked: false}, 
+    {id: 20, isClicked: false}, {id: 21, isClicked: false}, 
     {id: 22, isClicked: false}, {id: 23, isClicked: false},
     {id: 24, isClicked: false},
 ];
