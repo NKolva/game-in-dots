@@ -19,14 +19,13 @@ class Box extends Component {
             if(this.props.id === this.props.randomValue) {
                 this.setState({updatedId: this.props.id})
                 this.setState({boxColor: classes.BoxBlue})
-            } 
-            if (this.props.id === this.props.randomValue && 
-                this.state.boxColor === classes.BoxBlue &&
-                this.state.boxColor !== classes.BoxGreen) {
-                setTimeout(() => {
+            };
+            setTimeout(() => {
+                if (this.props.id === this.props.randomValue && 
+                    this.props.array[this.props.id].isClicked === false) {
                     this.setState({boxColor: classes.BoxRed})
-                }, 900) //props.gameMode to set time
-            }
+                }
+            }, 1400);
         }
     }
 
@@ -36,11 +35,7 @@ class Box extends Component {
             this.props.array[this.props.id].isClicked = true;
             this.props.user.push({id: this.props.id});
             this.setState({boxColor: classes.BoxGreen})
-        } 
-        // else if (this.props.id !== this.props.randomValue) {
-        //     this.setState({boxColor: classes.BoxRed})
-        //     console.log('Not valid id');
-        // }
+        }
     }
 
     render(){
@@ -48,7 +43,7 @@ class Box extends Component {
         return(
             <div className={classes.Box} onClick={this.checkBoxId}>
                 <div className={this.state.boxColor}>
-                    {/* {this.state.updatedId} */}
+                    
                 </div>
             </div>
         )

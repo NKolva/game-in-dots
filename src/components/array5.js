@@ -1,4 +1,4 @@
-const array1 = [
+const array5 = [
     {id: 0, isClicked: false}, {id: 1, isClicked: false}, 
     {id: 2, isClicked: false}, {id: 3, isClicked: false}, 
     {id: 4, isClicked: false}, {id: 5, isClicked: false},
@@ -14,6 +14,4 @@ const array1 = [
     {id: 24, isClicked: false},
 ];
 
-export default array1;
-
-// module.exports = array1;
+export default array5;

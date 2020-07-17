@@ -74,6 +74,7 @@
 .Box25 {
     width: 235px;
     height: 235px;
+    margin-top: 35px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Box from '../Box/Box';
 import LeaderBoard from '../LeaderBoard/LeaderBoard';
 import { connect } from 'react-redux';
-import array1 from '../array';
+import array5 from '../array5';
 
 import classes from './MainPage.module.css';
 
@@ -20,32 +20,30 @@ class MainPage extends Component {
         hardMode: 900,
         userName: '',
         winner: '',
-        gameMode: ''
+        gameMode: '',
       }
     }
 
-    componentDidUpdate() {
-      console.log('Computer data', this.props.computer)
+    componentDidUpdate(prevProps, prevState) {
+      console.log('Computer data', this.props.computer);
       if(this.state.randomValue.isClicked === false){
         this.props.computer.push({id: this.state.randomValue.id});
       }
 
-      if(this.props.user.length >= 13) {
-        clearInterval(this.state.timer);
-        // this.setState({winner: this.state.userName + 'win'})
-        console.log(this.state.winner)
-      } else if (this.props.computer.length >= 13) {
-        clearInterval(this.state.timer);
-        // this.setState({winner: 'Computer win'});
-        console.log(this.state.winner)
-      }
-    }
+      let winnerTag = 'Win';
+      let computerName = 'Computer Win';
 
-    combineColors = () => {
-      if(this.state.color === 'black') {
-        this.setState({color: classes.Check1});
-      } else {
-        setTimeout(() => {this.setState({color: classes.Check2})}, 900);
+      if(prevState && 
+         prevState.winner !== prevState.userName &&
+         prevState.winner !== winnerTag &&
+         prevState.winner !== computerName){
+        if(this.props.user.length >= 13 ) {
+          clearInterval(this.state.timer);
+          this.setState({winner: this.state.userName + winnerTag});
+        } else if (this.props.computer.length >= 13) {
+          clearInterval(this.state.timer);
+          this.setState({winner: computerName});
+        }
       }
     }
 
@@ -54,8 +52,8 @@ class MainPage extends Component {
 
       if(this.state.startGame === true && this.state.userName){
         this.setState({timer: setInterval(() => {
-          const randomId = array1[Math.floor(Math.random() * array1.length)];
-          this.setState({randomValue: randomId})
+          const randomId = array5[Math.floor(Math.random() * array5.length)];
+          this.setState({randomValue: randomId});
           console.log('Random id: ', this.state.randomValue);
         } , this.state.hardMode)});
           return this.state.timer;
@@ -108,16 +106,16 @@ class MainPage extends Component {
               </button>
             </div>
             <div>
-              Winner: { this.state.winner }
+              { this.state.winner }
             </div>
                 <div className={classes.Box25}>
-                    {array1.map(res => {
+                    {array5.map(res => {
                         return <Box 
                                     key={res.id}
                                     id={res.id}
                                     isClicked={res.isClicked}
                                     randomValue={this.state.randomValue.id}
-                                    array={array1}/>
+                                    array={array5}/>
                     })}
             </div>
           </div>
