@@ -11,10 +11,10 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 
-import rootReducerData from './store/reducers/rootReducer'
+import winnersReducuer from './store/reducers/winners-reducer'
 
 const rootReducer = combineReducers({
-  leaderData: rootReducerData
+  leaderData: winnersReducuer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk))

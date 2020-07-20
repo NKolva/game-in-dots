@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import * as actions from '../../store/actions';
+import { connect } from 'react-redux';
 
 import classes from './LeaderBoard.module.css';
 
@@ -11,20 +13,41 @@ class LeaderBoard extends Component {
         }
     }
 
+    componentDidMount() {
+        this.props.getWinnersData();
+
+
+    }
+
     render() {
         return(
             <div className={classes.LeaderBoard}>
                 <div className={classes.LeaderTitle}>Leader Board</div>
-
                 <div className={classes.Leaders}>
-                    <div className={classes.LeadersList}>
-                        <span className={classes.LeadersInfo}>User Name</span>
-                        <span className={classes.LeadersInfo}>Date and Time</span>
-                    </div>
+                    {this.props.winnersData.sort(() => { return -1 }).slice(0, 4).map(res => {
+                        return (
+                            <div className={classes.LeadersList} key={res.id}>
+                                <span className={classes.LeadersInfo}>{res.winner}</span>
+                                <span className={classes.LeadersInfo}>{res.date}</span>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         );
     };
 }
 
-export default LeaderBoard;
+const mapStateToPRops = state => {
+    return {
+        winnersData: state.leaderData.winnersData,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getWinnersData: () => dispatch(actions.fetchWinnersData()),
+    }
+}
+
+export default connect(mapStateToPRops, mapDispatchToProps)(LeaderBoard);

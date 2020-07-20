@@ -10,7 +10,8 @@ class Box extends Component {
 
         this.state = {
             updatedId: null,
-            boxColor: null
+            boxColor: null,
+            setBox: null
         }
     }
 
@@ -30,7 +31,6 @@ class Box extends Component {
     }
 
     checkBoxId = () => {
-        console.log('Box value: ', this.props.id + ' : ' + this.props.randomValue)
         if(this.props.id === this.props.randomValue) {
             this.props.array[this.props.id].isClicked = true;
             this.props.user.push({id: this.props.id});
@@ -41,9 +41,9 @@ class Box extends Component {
     render(){
         
         return(
-            <div className={classes.Box} onClick={this.checkBoxId}>
+            <div className={this.props.boxSize} onClick={this.checkBoxId}>
                 <div className={this.state.boxColor}>
-                    
+
                 </div>
             </div>
         )

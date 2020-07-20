@@ -1,6 +1,18 @@
-.Box {
+.hardMode {
+    width: 13.6px;
+    height: 13.6px;
+    border: 1px solid #ebebee;
+}
+
+.easyMode {
     width: 45px;
     height: 45px;
+    border: 1px solid #ebebee;
+}
+
+.normalMode {
+    width: 21.5px;
+    height: 21.5px;
     border: 1px solid #ebebee;
 }
 
