@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Box from '../Box/Box';
 import LeaderBoard from '../LeaderBoard/LeaderBoard';
 import { connect } from 'react-redux';
+import * as actions from '../../store/actions';
 import array5 from '../array5';
 import array10 from '../array10';
 import array15 from '../array15';
@@ -16,15 +17,18 @@ class MainPage extends Component {
         randomValue: [],
         timer: null,
         startGame: true,
-        easyMode: 2000,
-        normalMode: 1000,
-        hardMode: 900,
+        gameDelay: 0,
         userName: '',
         winner: '',
         gameMode: '',
         gameArray: [],
-        boxSize: null
+        boxSize: null,
+        arrayLength: 0
       }
+    }
+
+    componentDidMount() {
+      this.props.getGameSettings();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -36,10 +40,10 @@ class MainPage extends Component {
          prevState.winner !== prevState.userName &&
          prevState.winner !== 'Win' &&
          prevState.winner !== 'Computer Win'){
-        if(this.props.user.length === 10 ) {
+        if(this.props.user.length === this.state.arrayLength ) {
           clearInterval(this.state.timer);
           this.setState({winner: this.state.userName + 'Win'});
-        } else if (this.props.computer.length === 10) {
+        } else if (this.props.computer.length === this.state.arrayLength) {
           clearInterval(this.state.timer);
           this.setState({winner: 'Computer Win'});
         }
@@ -47,32 +51,42 @@ class MainPage extends Component {
 
       if(prevState.gameMode !== 'easyMode' && 
          prevState.gameArray !== array5 &&
-         prevState.boxSize !== classes.easyMode) {
+         prevState.boxSize !== classes.easyMode &&
+         prevState.arrayLength !== 13 &&
+         prevState.gameDelay !== this.props.gameSettings.easyMode.delay) {
         if(this.state.gameMode === 'easyMode'){
           this.setState({gameArray: array5});
-          this.setState({boxSize: classes.easyMode})
+          this.setState({boxSize: classes.easyMode});
+          this.setState({arrayLength: 13});
+          this.setState({gameDelay: this.props.gameSettings.easyMode.delay})
         } 
       }
 
       if(prevState.gameMode !== 'normalMode' && 
          prevState.gameArray !== array10 &&
-         prevState.boxSize !== classes.normalMode) {
+         prevState.boxSize !== classes.normalMode &&
+         prevState.arrayLength !== 51 &&
+         prevState.gameDelay !== this.props.gameSettings.normalMode.delay) {
         if(this.state.gameMode === 'normalMode'){
           this.setState({gameArray: array10});
-          this.setState({boxSize: classes.normalMode})
+          this.setState({boxSize: classes.normalMode});          
+          this.setState({arrayLength: 51});
+          this.setState({gameDelay: this.props.gameSettings.normalMode.delay})
         } 
       }
 
       if(prevState.gameMode !== 'hardMode' && 
          prevState.gameArray !== array15 && 
-         prevState.boxSize !== classes.hardMode) {
+         prevState.boxSize !== classes.hardMode &&
+         prevState.arrayLength !== 113 &&
+         prevState.gameDelay !== this.props.gameSettings.hardMode.delay) {
         if(this.state.gameMode === 'hardMode'){
           this.setState({gameArray: array15});
-          this.setState({boxSize: classes.hardMode})
+          this.setState({boxSize: classes.hardMode});
+          this.setState({arrayLength: 113});
+          this.setState({gameDelay: this.props.gameSettings.hardMode.delay})
         } 
       }
-
-      console.log(this.state.randomValue)
     }
 
     startInterval = () => {
@@ -82,9 +96,10 @@ class MainPage extends Component {
         this.setState({timer: setInterval(() => {
           const randomId = this.state.gameArray[Math.floor(Math.random() * this.state.gameArray.length)];
           this.setState({randomValue: randomId});
-        } , this.state.hardMode)});
+        } , this.state.gameDelay)});
           return this.state.timer;
       } else if (this.state.startGame === false) {
+        window.location.reload()
         clearInterval(this.state.timer);
       }
     }
@@ -95,6 +110,25 @@ class MainPage extends Component {
 
     selectValue = (event) => {
       this.setState({gameMode: event.target.value});
+    }
+
+    getRealData = () => {
+      // const months = [
+      //   "January", "February", 
+      //   "March","Apil", 
+      //   "May", "June", 
+      //   "July", "August", 
+      //   "September", "October", 
+      //   "November", "December"];
+
+      // let currentDatetime = new Date();
+      // let formattedDate = currentDatetime.getDate() + " " + months[currentDatetime.getMonth()] + " " + currentDatetime.getFullYear();
+      // let timeUnix = new Date().getTime();
+      // let time = new Date(timeUnix * 1000);
+      // let hours = time.getHours();
+      // let minutes = '0' + time.getMinutes();
+      // let currentTime = hours + ':' + minutes.substr(-2);
+      // console.log(currentTime + '; ' + formattedDate);
     }
   
     render(){
@@ -147,8 +181,15 @@ class MainPage extends Component {
 const mapStateToProps = state => {
   return {
     user: state.leaderData.user,
-    computer: state.leaderData.computer
+    computer: state.leaderData.computer,
+    gameSettings: state.gameSettings.gameSettings
   }
 }
 
-export default connect(mapStateToProps, null)(MainPage);
+const mapDispatchToProps = dispatch => {
+  return {
+    getGameSettings: () => dispatch(actions.fetchGameSettings()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

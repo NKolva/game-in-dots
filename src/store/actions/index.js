@@ -1,4 +1,9 @@
 export {
     fetchWinnersDataFailed,
-    fetchWinnersData
+    fetchWinnersData,
 } from './winnersData';
+
+export {
+    fetchGameSettingsFailed,
+    fetchGameSettings
+} from './gameSettings'

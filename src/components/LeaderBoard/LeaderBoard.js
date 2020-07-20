@@ -15,8 +15,6 @@ class LeaderBoard extends Component {
 
     componentDidMount() {
         this.props.getWinnersData();
-
-
     }
 
     render() {

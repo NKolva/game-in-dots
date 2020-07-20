@@ -11,10 +11,12 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 
-import winnersReducuer from './store/reducers/winners-reducer'
+import winnersReducuer from './store/reducers/winners-reducer';
+import gameSettingsReducer from './store/reducers/game-settings';
 
 const rootReducer = combineReducers({
-  leaderData: winnersReducuer
+  leaderData: winnersReducuer,
+  gameSettings: gameSettingsReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk))

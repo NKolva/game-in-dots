@@ -28,3 +28,9 @@ export const fetchWinnersData = () => {
         })
     }
 }
+
+export const postWinnersData = () => {
+    return dispatch => {
+        
+    }
+}
